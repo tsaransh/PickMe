@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="CompilerConfiguration">
+    <annotationProcessing>
+      <profile default="true" name="Default" enabled="true" />
+      <profile name="Maven default annotation processors profile" enabled="true">
+        <sourceOutputDir name="target/generated-sources/annotations" />
+        <sourceTestOutputDir name="target/generated-test-sources/test-annotations" />
+        <outputRelativeToContentRoot value="true" />
+        <module name="pickme-rides" />
+        <module name="pickme-user" />
+        <module name="pickme-gateway" />
+        <module name="pickme-configuration" />
+        <module name="pickme-discoveryserver" />
+      </profile>
+    </annotationProcessing>
+  </component>
+  <component name="JavacSettings">
+    <option name="ADDITIONAL_OPTIONS_OVERRIDE">
+      <module name="pickme-configuration" options="-parameters" />
+      <module name="pickme-discoveryserver" options="-parameters" />
+      <module name="pickme-gateway" options="-parameters" />
+      <module name="pickme-rides" options="-parameters" />
+      <module name="pickme-user" options="-parameters" />
+    </option>
+  </component>
+</project>

@@ -1,0 +1,67 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Email Verification</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            color: #333;
+            background-color: #f4f4f4;
+            margin: 0;
+            padding: 0;
+        }
+        .container {
+            max-width: 600px;
+            margin: 20px auto;
+            background-color: #fff;
+            padding: 20px;
+            border-radius: 8px;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+        }
+        h3 {
+            color: #333;
+        }
+        .button {
+            display: inline-block;
+            padding: 12px 24px;
+            color: #ffffff;
+            background-color: #007bff;
+            text-decoration: none;
+            border-radius: 5px;
+            font-size: 16px;
+            font-weight: bold;
+        }
+        .button:hover {
+            background-color: #0056b3;
+        }
+        .link {
+            color: #007bff;
+            word-wrap: break-word;
+        }
+        .footer {
+            font-size: 0.9em;
+            color: #666;
+            margin-top: 20px;
+        }
+    </style>
+</head>
+<body>
+<div class="container">
+    <h3 th:text="'Dear ' + ${name} + ','">Dear User,</h3>
+    <p>Thank you for registering with us! Please click the button below to verify your email address:</p>
+
+    <p>
+        <a th:href="${verificationLink}" class="button">Verify Email</a>
+    </p>
+
+    <p>If the button above does not work, please copy and paste the following link into your browser:</p>
+    <p class="link"><a th:href="${verificationLink}" th:text="${verificationLink}">Verification Link</a></p>
+
+    <p>If you didn’t request this, please ignore this email.</p>
+    <div class="footer">
+        <p>Best regards,<br><strong>PickMe Team</strong></p>
+    </div>
+</div>
+</body>
+</html>
