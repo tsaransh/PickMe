@@ -2,10 +2,7 @@ package com.pickme.user.service.implementation;
 
 import com.pickme.user.entity.UserDetails;
 import com.pickme.user.exception.UserException;
-import com.pickme.user.payload.ChangePasswordRequest;
-import com.pickme.user.payload.RegisterUser;
-import com.pickme.user.payload.UserCredentials;
-import com.pickme.user.payload.UserDetailResponse;
+import com.pickme.user.payload.*;
 import com.pickme.user.repository.UserDetailsRepository;
 import com.pickme.user.service.UserService;
 import lombok.AllArgsConstructor;
@@ -15,6 +12,7 @@ import org.springframework.stereotype.Service;
 
 import java.util.Random;
 import java.util.UUID;
+import java.util.List;
 
 
 @Service
@@ -91,7 +89,8 @@ public class UserServices implements UserService {
             throw new UserException("Please verify your email before login....", HttpStatus.BAD_REQUEST);
         }
 
-        return userResponse(details);
+        // ToDo: send car details
+        return userResponse(details, null);
     }
 
     @Override
@@ -198,7 +197,7 @@ public class UserServices implements UserService {
                 .orElseThrow(() ->  new UserException("no user found", HttpStatus.NOT_FOUND));
     }
 
-    private UserDetailResponse userResponse(UserDetails details) {
+    private UserDetailResponse userResponse(UserDetails details, List<UserCarDetailsResponse> carDetails) {
         return new UserDetailResponse(
                 details.getUserUid(),
                 details.getUserFirstName(),
@@ -209,7 +208,8 @@ public class UserServices implements UserService {
                 details.getUserProfileUrl(),
                 details.isAccountVerify(),
                 details.getAccountStatus(),
-                details.getUserRatting()
+                details.getUserRatting(),
+                carDetails
         );
     }
 

@@ -9,7 +9,6 @@ import org.springframework.data.annotation.CreatedDate;
 import org.springframework.data.annotation.LastModifiedDate;
 import org.springframework.data.jpa.domain.support.AuditingEntityListener;
 
-import java.time.Instant;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
@@ -41,6 +40,8 @@ public class Rides {
 
     @LastModifiedDate
     private Date lastUpdateDate;
+
+    private String carRegistrationNumber;
 
     private double rideAmount;
 
