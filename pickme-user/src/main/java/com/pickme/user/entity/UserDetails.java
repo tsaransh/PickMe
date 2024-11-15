@@ -1,6 +1,8 @@
 package com.pickme.user.entity;
 
 import jakarta.persistence.*;
+import jakarta.validation.constraints.Email;
+import jakarta.validation.constraints.NotNull;
 import lombok.*;
 import org.springframework.data.annotation.CreatedDate;
 import org.springframework.data.annotation.LastModifiedDate;
@@ -25,12 +27,21 @@ public class UserDetails {
 
     @Id
     @Column(length = 10, updatable = false, nullable = false)
-    private String userUid;
+    private String userId;
 
+    @NotNull(message = "First Name can not be empty")
     private String userFirstName;
+
     private String userLastName;
+
+    @NotNull(message = "Phone Number can not be empty")
     private String phoneNumber;
+
+    @NotNull(message = "Email can not be empty")
+    @Email(message = "Email can not valid")
     private String emailAddress;
+
+    @NotNull(message = "password can not be empty")
     private String password;
 
     @CreatedDate
@@ -57,8 +68,8 @@ public class UserDetails {
 
     @PrePersist
     private void ensureId() {
-        if (this.userUid == null) {
-            this.userUid = generateUniqueId();
+        if (this.userId == null) {
+            this.userId = generateUniqueId();
         }
     }
 

@@ -1,12 +1,15 @@
 package com.pickme.user.payload;
 
-import lombok.Data;
+import lombok.Getter;
+import lombok.Setter;
 
-@Data
-public class CarRegisterRequest {
+@Getter
+@Setter
+public class CarUpdateRequest {
+    private long carId;
     private String registerNumber;
     private String modelName;
     private String color;
     private long seatLimit;
-    private String carOwnerUserID;
+
 }

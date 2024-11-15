@@ -6,14 +6,32 @@ services:
     restart: always
     environment:
       POSTGRES_PASSWORD: postgres
+      POSTGRES_USER: postgres
+      POSTGRES_DB: PickMeDB
     volumes:
       - pgdata:/var/lib/postgresql/data
+    ports:
+      - "5432:5432"
 
   adminer:
     image: adminer
     restart: always
     ports:
-      - 8080:8080
+      - "8080:8080"
+
+  zipkin:
+    image: openzipkin/zipkin
+    restart: always
+    ports:
+      - "9411:9411"  # Zipkin UI is available on port 9411
+    environment:
+      - STORAGE_TYPE=mem  # Default in-memory storage, you can use other backends like Elasticsearch
+    networks:
+      - default
 
 volumes:
   pgdata:
+
+networks:
+  default:
+    name: pickme_network

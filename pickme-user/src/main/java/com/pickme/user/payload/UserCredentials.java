@@ -1,7 +1,7 @@
 package com.pickme.user.payload;
 
 public record UserCredentials(
-        String emailOrPhoneNumber,
+        String emailOrPhone,
         String password
 ) {
 }

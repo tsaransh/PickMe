@@ -1,6 +1,7 @@
 package com.pickme.rides.entity;
 
 import jakarta.persistence.*;
+import jakarta.validation.constraints.NotNull;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
@@ -20,11 +21,12 @@ import java.util.UUID;
 @NoArgsConstructor
 @AllArgsConstructor
 @EntityListeners(AuditingEntityListener.class)
-public class Rides {
+public class CarPollingRide {
 
     @Id
     private String rideId;
 
+    @NotNull
     private String rideRegisterByUserId;
 
     @Column(name = "starting_point", nullable = false)

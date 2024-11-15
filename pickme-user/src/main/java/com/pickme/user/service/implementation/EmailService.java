@@ -51,6 +51,7 @@ public class EmailService {
 
             javaMailSender.send(message);
 
+
         } catch (MessagingException e) {
             throw new ApiException(HttpStatus.BAD_REQUEST, "Email can not be send to "+email);
         }

@@ -7,6 +7,7 @@ import com.pickme.user.repository.UserDetailsRepository;
 import com.pickme.user.service.UserService;
 import lombok.AllArgsConstructor;
 import org.springframework.http.HttpStatus;
+import org.springframework.security.core.userdetails.User;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
@@ -39,7 +40,7 @@ public class UserServices implements UserService {
         }
 
         UserDetails userDetails = UserDetails.builder()
-                .userUid(generateUniqueId())
+                .userId(generateUniqueId())
                 .userFirstName(registerUser.firstName())
                 .userLastName(registerUser.lastName())
                 .phoneNumber(registerUser.phoneNumber())
@@ -54,7 +55,7 @@ public class UserServices implements UserService {
 
         UserDetails savedUser =  userDetailsRepository.save(userDetails);
 
-        if(!savedUser.getUserUid().isEmpty()) {
+        if(!savedUser.getUserId().isEmpty()) {
             emailService.sendEmailVerification(
                     savedUser.getUserFirstName(),
                     savedUser.getEmailAddress(),
@@ -160,6 +161,12 @@ public class UserServices implements UserService {
         return "Email send to "+ maskEmail(details.getEmailAddress());
     }
 
+    @Override
+    public UserDetails getUserDetails(String userId) {
+        return userDetailsRepository.findById(userId)
+                .orElseThrow(() -> new UserException("User not found!", HttpStatus.NOT_FOUND));
+    }
+
     private String maskEmail(String email) {
         int atIndex = email.indexOf("@");
         if (atIndex <= 1) { // In case email is too short to mask reasonably
@@ -199,7 +206,7 @@ public class UserServices implements UserService {
 
     private UserDetailResponse userResponse(UserDetails details, List<UserCarDetailsResponse> carDetails) {
         return new UserDetailResponse(
-                details.getUserUid(),
+                details.getUserId(),
                 details.getUserFirstName(),
                 details.getUserLastName(),
                 details.getEmailAddress(),

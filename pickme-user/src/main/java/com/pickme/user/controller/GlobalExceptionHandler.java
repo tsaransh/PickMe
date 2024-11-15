@@ -1,6 +1,7 @@
 package com.pickme.user.controller;
 
 import com.pickme.user.exception.ApiException;
+import com.pickme.user.exception.CarException;
 import com.pickme.user.exception.UserException;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -17,6 +18,11 @@ public class GlobalExceptionHandler {
 
     @ExceptionHandler(ApiException.class)
     public ResponseEntity<String> handleApiException(ApiException ex) {
+        return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(ex.getMessage());
+    }
+
+    @ExceptionHandler(CarException.class)
+    public ResponseEntity<String> handleCarException(CarException ex) {
         return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(ex.getMessage());
     }
 

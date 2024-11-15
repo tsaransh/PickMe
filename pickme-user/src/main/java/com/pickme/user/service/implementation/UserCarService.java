@@ -50,7 +50,7 @@ public class UserCarService implements UserCarServices {
 
     private UserCarDetails toUserCarDetails(CarRegisterRequest request) {
         return UserCarDetails.builder()
-                .registerNumber(request.getRegisterNumber())
+                .registrationNumber(request.getRegisterNumber())
                 .modelName(request.getModelName())
                 .color(request.getColor())
                 .seatLimit(request.getSeatLimit())
@@ -63,12 +63,12 @@ public class UserCarService implements UserCarServices {
                 .color(updateCarInfo().getColor())
                 .seatLimit(savedCar.getSeatLimit())
                 .modelName(savedCar.getModelName())
-                .registerNumber(savedCar.getRegisterNumber())
+                .registerNumber(savedCar.getRegistrationNumber())
                 .build();
     }
 
     private boolean carExistByRegistrationNumber(String registrationNumber) {
-        return carDetailsRepository.findByRegisterNumber(registrationNumber).isPresent();
+        return carDetailsRepository.findByRegistrationNumber(registrationNumber).isPresent();
     }
 
 }

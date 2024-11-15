@@ -12,8 +12,5 @@ public interface UserDetailsRepository extends JpaRepository<UserDetails, String
     Boolean existsByPhoneNumber(String phoneNumber);
     Boolean existsByEmailAddress(String emailAddress);
 
-    Optional<UserDetails> findByEmailAddress(String emailAddress);
-    Optional<UserDetails> findByPhoneNumber(String phoneNumber);
-
     Optional<UserDetails> findByVerificationToken(String token);
 }

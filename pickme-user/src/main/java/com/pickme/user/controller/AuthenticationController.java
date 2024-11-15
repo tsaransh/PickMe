@@ -8,8 +8,6 @@ import lombok.AllArgsConstructor;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
-import java.util.Map;
-
 @RestController
 @RequestMapping("/api/v1/user/auth")
 @AllArgsConstructor
@@ -39,6 +37,7 @@ public class AuthenticationController {
         return ResponseEntity.ok("Email has been sent to registered email address.");
     }
 
+//    TODO: change password using token
     @GetMapping("/password/verify-token")
     public ResponseEntity<String> verifyPasswordToken(@RequestParam String token) {
         return ResponseEntity.ok("Redirect to the change password screen");
@@ -61,7 +60,7 @@ public class AuthenticationController {
     }
 
     @GetMapping("/block-user")
-    public ResponseEntity<String> blockUser(@RequestBody RegisterUser userData) {
+    public ResponseEntity<String> blockUser(@RequestParam String emailOrPhone) {
         return null;
     }
 

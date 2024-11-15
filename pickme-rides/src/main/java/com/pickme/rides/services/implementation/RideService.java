@@ -1,6 +1,6 @@
 package com.pickme.rides.services.implementation;
 
-import com.pickme.rides.entity.Rides;
+import com.pickme.rides.entity.CarPollingRide;
 import com.pickme.rides.payloads.RegisterRideRequest;
 import com.pickme.rides.payloads.RideDetailsResponse;
 import com.pickme.rides.services.RidesServices;
@@ -40,8 +40,8 @@ public class RideService implements RidesServices {
         return List.of();
     }
 
-    private Rides toRides(RegisterRideRequest request) {
-        return Rides.builder()
+    private CarPollingRide toRides(RegisterRideRequest request) {
+        return CarPollingRide.builder()
 
                 .build();
     }

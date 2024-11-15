@@ -20,7 +20,8 @@ public class SecurityConfiguration {
                 .csrf(csrf -> csrf.disable())
                 .sessionManagement(session -> session.sessionCreationPolicy(SessionCreationPolicy.STATELESS))
                 .authorizeHttpRequests(request -> {
-                    request.requestMatchers("/api/v1/user/**").permitAll()
+                    request.requestMatchers("/api/v1/user/**").permitAll();
+                    request.requestMatchers(" http://localhost:9411/**").permitAll()
                             .anyRequest().authenticated();
                 });
 

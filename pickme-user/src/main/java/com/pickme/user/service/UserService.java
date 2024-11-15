@@ -25,4 +25,7 @@ public interface UserService {
     public void changePasswordUsingToken(String token);
 
     String generateEmailVerificationToken(String emailOrPhone);
+
+    UserDetails getUserDetails(String userId);
+
 }

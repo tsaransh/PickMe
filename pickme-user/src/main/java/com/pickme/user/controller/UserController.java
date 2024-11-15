@@ -38,8 +38,8 @@ public class UserController {
         return null;
     }
 
-    @GetMapping("/userId/details/")
-    public ResponseEntity<UserDetails> findUserByID(@RequestParam("userId") String userId) {
+    @GetMapping("/detail")
+    public ResponseEntity<UserDetailResponse> findUserByID(@RequestParam("userId") String userId) {
         return null;
     }
 
