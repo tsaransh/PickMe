@@ -1,5 +1,6 @@
 package com.pickme.user.service.implementation;
 
+import com.pickme.user.entity.UserCarDetails;
 import com.pickme.user.entity.UserDetails;
 import com.pickme.user.exception.UserException;
 import com.pickme.user.payload.*;
@@ -87,11 +88,16 @@ public class UserServices implements UserService {
             throw new UserException("Your account is temporally blocked or deactivate due to some regions, please contact help and support", HttpStatus.BAD_REQUEST);
         }
         if(!details.isAccountVerify()) {
-            throw new UserException("Please verify your email before login....", HttpStatus.BAD_REQUEST);
+            throw new UserException("Please verify your email", HttpStatus.BAD_REQUEST);
         }
 
-        // ToDo: send car details
-        return userResponse(details, null);
+        List<UserCarDetailsResponse> carDetailsResponse = details.getCarDetails()
+                .stream()
+                .filter(UserCarDetails::isCarActive)
+                .map(this::toCarResponse)
+                .toList();
+
+        return userResponse(details, carDetailsResponse);
     }
 
     @Override
@@ -167,6 +173,11 @@ public class UserServices implements UserService {
                 .orElseThrow(() -> new UserException("User not found!", HttpStatus.NOT_FOUND));
     }
 
+    @Override
+    public void saveUserDetails(UserDetails userDetails) {
+        userDetailsRepository.save(userDetails);
+    }
+
     private String maskEmail(String email) {
         int atIndex = email.indexOf("@");
         if (atIndex <= 1) { // In case email is too short to mask reasonably
@@ -218,6 +229,16 @@ public class UserServices implements UserService {
                 details.getUserRatting(),
                 carDetails
         );
+    }
+
+    private UserCarDetailsResponse toCarResponse(UserCarDetails saveCar) {
+        return UserCarDetailsResponse.builder()
+                .carId(saveCar.getCarId())
+                .registerNumber(saveCar.getRegistrationNumber())
+                .modelName(saveCar.getModelName())
+                .color(saveCar.getColor())
+                .seatLimit(saveCar.getSeatLimit())
+                .build();
     }
 
 }

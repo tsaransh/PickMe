@@ -28,4 +28,6 @@ public interface UserService {
 
     UserDetails getUserDetails(String userId);
 
+    void saveUserDetails(UserDetails userDetails);
+
 }

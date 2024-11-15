@@ -26,13 +26,21 @@ public class CarService implements CarServices {
     @Override
     public UserCarDetailsResponse registerCar(CarRegisterRequest request) {
 
+        if(carDetailsRepository.findByRegistrationNumber(request.getRegisterNumber()).isPresent()) {
+            throw new CarException("Car is already added", HttpStatus.BAD_REQUEST);
+        }
+
         UserDetails userDetails = userService.getUserDetails(request.getCarOwnerUserID());
 
         UserCarDetails carDetails = toCarEntity(request, userDetails);
 
         carDetails.setCarActive(true);
 
-        return toCarResponse(carDetailsRepository.save(carDetails));
+        userDetails.getCarDetails().add(carDetails);
+
+        userService.saveUserDetails(userDetails);
+
+        return toCarResponse(userDetails.getCarDetails().getLast());
     }
 
     @Override
